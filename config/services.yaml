@@ -17,8 +17,8 @@ services:
         resource: '../src/'
         exclude:
             - '../src/DependencyInjection/'
-            - '../src/Entity/'
-            - '../src/Kernel.php'
+            - '../src/Domain/Entity/'
+            - '../src/Infrastructure/Symfony/Kernel.php'
             - '../src/Tests/'
 
     # add more service definitions when explicit configuration is needed

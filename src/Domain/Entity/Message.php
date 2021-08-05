@@ -9,7 +9,8 @@ class Message
 
     public function __construct(
         private string $id,
-        private string $content
+        private string $content,
+        private User $recipient,
     )
     {
         if(strlen($this->content) === 0){
@@ -25,6 +26,11 @@ class Message
     public function getContent(): string
     {
         return $this->content;
+    }
+
+    public function getRecipient(): User
+    {
+        return $this->recipient;
     }
 
 }

@@ -1,0 +1,5 @@
+#!/bin/bash
+
+bin/database/clear && \
+bin/console doctrine:fixtures:load $1 -n --append
+
