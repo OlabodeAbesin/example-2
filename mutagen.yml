@@ -1,0 +1,79 @@
+# Set up the Mutagen service and code volume before creating sessions.
+beforeCreate:
+  - docker-compose -f docker-compose.yml -f docker-compose.macos.yml up -d php
+  - docker-compose -f docker-compose.yml -f docker-compose.macos.yml exec php ln -s /var/www/html /mutagen_sync
+
+# Set up the main services after creating sessions. At this point, sessions will
+# have been established and code pushed to the shared volume.
+afterCreate:
+  - docker-compose -f docker-compose.yml -f docker-compose.macos.yml up --build -d
+
+# Pause services after pausing sessions.
+afterPause:
+  - docker-compose -f docker-compose.yml -f docker-compose.macos.yml stop
+
+# Resume services before resume sessions.
+beforeResume:
+  - docker-compose -f docker-compose.yml -f docker-compose.macos.yml up -d
+
+# Tear down all services and remove the code volume after terminating sessions.
+afterTerminate:
+  - docker-compose -f docker-compose.yml -f docker-compose.macos.yml down -v
+
+sync:
+  defaults:
+    ignore:
+      paths:
+        - .idea
+        - .git
+        - "/.mutagen"
+        - "/mutagen.yml.lock"
+    permissions:
+      defaultFileMode: 664
+      defaultDirectoryMode: 775
+    symlink:
+      mode: ignore
+
+  code:
+    alpha: "./"
+    beta: "docker://transfergo-interview-task_php_1/mutagen_sync"
+    mode: "two-way-safe"
+    configurationBeta:
+      permissions:
+        defaultOwner: id:33
+        defaultGroup: id:33
+    watch:
+      pollingInterval: 2
+    ignore:
+      vcs: true
+      paths:
+        - "/bin/.phpunit"
+        - "/.phpunit.result.cache"
+        - "/var"
+        - "/vendor"
+        - "/migrations"
+        - "/.deptrac.cache"
+
+  logs:
+    alpha: "docker://transfergo-interview-task_php_1/mutagen_sync/var/log"
+    beta: "./var/log"
+    mode: "one-way-replica"
+    watch:
+      pollingInterval: 5
+
+  composerVendor:
+    alpha: "docker://transfergo-interview-task_php_1/mutagen_sync/vendor"
+    beta: "./vendor"
+    mode: "two-way-resolved"
+    watch:
+      pollingInterval: 5
+    symlink:
+      mode: ignore
+
+  migrations:
+    alpha: "docker://transfergo-interview-task_php_1/mutagen_sync/migrations"
+    beta: "./migrations"
+    mode: "two-way-resolved"
+    watch:
+      pollingInterval: 5
+
