@@ -4,6 +4,7 @@ namespace App\Infrastructure\Doctrine\Repository;
 
 use App\Domain\Entity\User;
 use App\Domain\Exception\UserAlreadyExistException;
+use App\Domain\Exception\UserNotFoundException;
 use App\Domain\Repository\UserRepository as DomainUserRepository;
 use Doctrine\ORM\EntityManagerInterface;
 use Doctrine\ORM\EntityRepository;
@@ -25,4 +26,17 @@ class UserRepository extends EntityRepository implements DomainUserRepository
         $this->_em->persist($user);
         $this->_em->flush();
     }
+
+    public function findById(string $userId): User
+    {
+        $user = $this->find($userId);
+
+        if(!$user instanceof User){
+            throw new UserNotFoundException();
+        }
+
+        return $user;
+    }
+
+
 }
