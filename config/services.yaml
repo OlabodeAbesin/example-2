@@ -32,11 +32,11 @@ services:
 
   loggerSender:
     class: App\Domain\Service\MessageSender\LoggerSender
-    tags: [ 'app.handler']
+    tags: [ 'app.message.sender']
 
   App\Domain\Service\MessageSender\MessageSenderService:
     arguments:
-      - !tagged_iterator app.handler
+      - !tagged_iterator app.message.sender
 
   App\Infrastructure\Symfony\EventListener\ValidationExceptionListener:
     tags:

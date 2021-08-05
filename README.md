@@ -36,7 +36,15 @@ Credentials are saved in `.env` file. Postgres port `5432` is bind to your local
 
 First you need to load test data for functional testing:
 
+```bash
+docker-compose exec php bin/database/load-test-data --env=test
+```
 
+Then you can run tests:
+
+```bash
+docker-compose exec php bin/phpunit --testdox
+```
 
 ## Description
 
@@ -54,4 +62,6 @@ This is simple messaging microservice application. You can send messages by mult
 * Postgres database chosen for quick development, I would use MongoDB instead if I had time. I think it suits the job better. I created repositories as interfaces, doctrine repositories are implementing the methods, so it could be easily switched to other DB.
 * I didn't choose CQRS pattern to split read and writes in the system. This is something that I would concern if I would write "real world" application, but it mostly depends on the business needs.
 * I omitted authentication and authorization processes, for rapid development purposes.
-* User entity could be changed as the input data for the `send message` request, but for this project I chose that this data would be part of the microservice. 
+* User entity could be changed as the input data for the `send message` request, but for this project I chose that this data would be part of the microservice.
+* I did not have enough time to create real message sender. So I created dummy implementation of it `LoggerSender`. It implements the interface of the sender.
+* 
