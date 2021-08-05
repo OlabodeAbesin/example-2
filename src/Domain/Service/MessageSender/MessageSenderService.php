@@ -13,7 +13,7 @@ class MessageSenderService
      */
     private array $senders;
 
-    public function __construct(array $senders)
+    public function __construct(iterable $senders)
     {
         $this->senders = [];
 

@@ -13,18 +13,18 @@ class MessageController extends AbstractController
 {
 
     public function __construct(
-//        private MessageSenderService $messageSender,
-//        private MessageFactory $messageFactory,
+        private MessageSenderService $messageSender,
+        private MessageFactory $messageFactory,
     )
     {
     }
 
     #[Route('/message', name: 'message_send', methods: ['POST'])]
-    public function send(): JsonResponse
+    public function send(SendMessageDTO $dto): JsonResponse
     {
 
-//        $message = $this->messageFactory->create($dto);
-//        $this->messageSender->send($message);
+        $message = $this->messageFactory->create($dto);
+        $this->messageSender->send($message);
 
         return $this->json([], JsonResponse::HTTP_CREATED);
     }
