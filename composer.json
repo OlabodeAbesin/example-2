@@ -26,7 +26,8 @@
         "symfony/serializer": "5.3.*",
         "symfony/uid": "5.3.*",
         "symfony/validator": "5.3.*",
-        "symfony/yaml": "5.3.*"
+        "symfony/yaml": "5.3.*",
+        "twilio/sdk": "^6.27"
     },
     "require-dev": {
         "dama/doctrine-test-bundle": "^6.6",

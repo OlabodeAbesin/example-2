@@ -64,4 +64,4 @@ This is simple messaging microservice application. You can send messages by mult
 * I omitted authentication and authorization processes, for rapid development purposes.
 * User entity could be changed as the input data for the `send message` request, but for this project I chose that this data would be part of the microservice.
 * I did not have enough time to create real message sender. So I created dummy implementation of it `LoggerSender`. It implements the interface of the sender.
-* 
+* I created a draft of the Twilio sender class: `\App\Application\Service\TwilioMessageSender`

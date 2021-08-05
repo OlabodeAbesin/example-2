@@ -480,6 +480,9 @@
     "theseer/tokenizer": {
         "version": "1.2.1"
     },
+    "twilio/sdk": {
+        "version": "6.27.1"
+    },
     "webmozart/assert": {
         "version": "1.10.0"
     }
