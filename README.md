@@ -1,4 +1,4 @@
-TransferGO interview task
+TransferGO
 =========================
 
 ## How to run application
